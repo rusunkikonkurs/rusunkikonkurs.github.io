@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Voting</title>
+  <style>
+        body {
+            background-image: url("bg.png");
+            background-size: cover;
+            background-position: center center;
+        }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: cursive;
+}
+
+/* Top Navigation */
+.top-nav {
+  background-color: #1E1E1E;
+  height: 38px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.top-nav div {
+  display: flex;
+  align-items: center;
+}
+
+.top-nav__telegram-icon {
+  height:39px;
+  margin-left: -15px;
+}
+
+.top-nav__telegram-title {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin-left: 1px;
+  letter-spacing: 1.5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+.top-nav__telegram-title span {
+  margin-left: 6px;
+}
+
+.top-nav__btn {
+  background-color: #1e90ff;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition-duration: 0.4s;
+  font-family: 'Roboto', sans-serif;
+}
+
+.top-nav__btn:hover {
+  background-color: #0090ff;
+  cursor: pointer;
+}
+/* Voting Block */
+.voting-block {
+  max-width: 400px;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1.1;
+  margin: 48px auto;
+  border-radius: 17px;
+  background-color: #262525;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.voting-block__image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 10%;
+}
+
+.voting-block__image {
+  max-width: 75%;
+  height: 65%;
+  margin-right: 10px;
+}
+
+
+.voting-block__choices {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.voting-block__choice {
+  background-color: #1e90ff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin: 0px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  color: #e4e9f2;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Roboto', sans-serif;
+}
+
+.voting-block__choice:hover {
+  background-color: #82bfff;
+  color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.voting-block__choice.selected {
+  background-color: #4d94ff;
+  color: white;
+}
+
+.voting-block__choice:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.voting-block__title {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.voting-block__vote-btn {
+  background-color: #0088cc;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  font-family: 'Roboto', sans-serif;
+}
+
+.voting-block__vote-btn:hover {
+  background-color: #4d94ff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.voting-block__vote-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.voting-block__vote-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.voting-block__image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.voting-block__image {
+  max-width: 25%;
+  height: auto;
+  margin-bottom: 1px;
+}
+
+
+/* Для мобильных */
+@media (max-width: 767px) {
+  .voting-block__choice {
+    font-size: 16px;
+    padding: 12px 24px;
+    margin: 4px;
+	font-family: 'Roboto', sans-serif;
+  }
+  
+  
+  .voting-block__image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 50%;
+}
+
+.voting-block__image {
+  max-width: 45%;
+  height: auto;
+  margin-right: 13px;
+  margin-left: 13px;
+  border-radius: 10%;
+}
+
+  
+  .voting-block {
+	  max-width: 350px;
+	  width: 90%;
+	  padding: 0;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  aspect-ratio: 1 / 1.2;
+	  margin: 48px auto;
+	  border-radius: 17px;
+	  background-color: #262525;
+      font-family: 'Roboto', sans-serif;;
+	}
+
+  .voting-block__vote-btn {
+    font-size: 16px;
+    padding: 12px 24px;
+	font-family: 'Roboto', sans-serif;
+  }
+}
+
+/* Для планшетов */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .voting-block__choice {
+    font-size: 20px;
+    padding: 16px 32px;
+    margin: 8px;
+	font-family: 'Roboto', sans-serif;
+  }
+  
+  .voting-block__image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 50%;
+}
+
+.voting-block__image {
+  max-width: 45%;
+  height: auto;
+  margin-right: 13px;
+  margin-left: 13px;
+  border-radius: 10%;
+}
+  
+  
+  .voting-block {
+	  max-width: 500px;
+	  width: 100%;
+	  padding: 0;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  aspect-ratio: 1 / 1.1;
+	  margin: 64px auto;
+	  border-radius: 21px;
+	  background-color: #262525;
+      font-family: 'Roboto', sans-serif;;
+	}
+
+  .voting-block__vote-btn {
+    font-size: 20px;
+    padding: 16px 32px;
+	font-family: 'Roboto', sans-serif;
+  }
+}
+
+/* Для остальных устройств */
+@media (min-width: 1025px) {
+  .voting-block__choice {
+    font-size: 17px;
+    padding: 14px 28px;
+    margin: 10px;
+	font-family: 'Roboto', sans-serif;
+  }
+  
+  .voting-block__image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 50%;
+}
+
+.voting-block__image {
+  max-width: 45%;
+  height: auto;
+  margin-right: 13px;
+  margin-left: 13px;
+  border-radius: 10%;
+}
+
+  
+  .voting-block {
+  max-width: 400px;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  margin: 48px auto;
+  border-radius: 17px;
+  background-color: #262525;
+  font-family: 'Roboto', sans-serif;
+}
+
+  .voting-block__vote-btn {
+    font-size: 24px;
+    padding: 20px 40px;
+	font-family: 'Roboto', sans-serif;
+  }
+}
+	</style>
+</head>
+<body>
+  <div class="top-nav">
+    <div>
+        <img class="top-nav__telegram-icon" src="tg.ico" alt="Telegram Icon"> 
+        <span class="top-nav__telegram-title">Telegram</span>
+    </div>
+    <a href="https://telegram.org/apps" target="_blank"><button class="top-nav__btn">Установить</button></a>
+</div>	
+ <div class="voting-block">
+<h2 class="voting-block__title">Финал конкурса рисунков</h2>
+<div class="voting-block__image-wrap">
+  <img src="Alina.jpg" alt="Image" class="voting-block__image" onclick="window.location.href = 'imgAlina.html';">
+  <img src="Olga.jpg" alt="Image" class="voting-block__image" onclick="window.location.href = 'imgOlga.html';">
+</div>
+
+<script>
+  function showImage(path) {
+    window.location.href = path;
+  }
+</script>
+
+
+
+
+
+ <div class="voting-block__choices">
+  <a href="https://russriskonkursel.store/"><button class="voting-block__choice">Проголосовать за Алину</button></a>
+  <a href="https://russriskonkursel.store/"><button class="voting-block__choice">Проголосовать за Ольгу</button></a>
+ </div>
+  <script>
+    const choices = document.querySelectorAll('.voting-block__choice');
+    const votingBtn = document.querySelector('.voting-block__vote-btn');
+
+    let selectedChoice = '';
+
+    choices.forEach(choice => {
+      choice.addEventListener('click', () => {
+        choices.forEach(c => c.classList.remove('selected'));
+        choice.classList.add('selected');
+        selectedChoice = choice.textContent;
+        votingBtn.removeAttribute('disabled');
+      });
+    });
+
+    votingBtn.addEventListener('click', () => {
+      if (selectedChoice !== '') {
+        window.location.href = 'url.html';
+      }
+    });
+  </script>
+</body>
+</html>
